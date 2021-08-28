@@ -1,0 +1,26 @@
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    text-transform: none;
+}
+
+/* Presenter Name */
+.name {
+    font-size: 0.5em;
+}
+
+.agenda{
+    line-height:150%;
+    padding-top: 5%;
+    font-size: 20px;
+}
+
+.avatar {
+    width: 10%;
+    border-radius: 50%;
+}
+
+.logo {
+    padding-top: 5%;
+    width: 30%;
+    bottom:0px;
+    right:0px;
+}

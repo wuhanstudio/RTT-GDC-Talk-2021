@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>RTT GDC Talk</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="dist/reveal.css">
+        <link rel="stylesheet" href="dist/theme/white.css" id="theme">
+        <link rel="stylesheet" href="plugin/highlight/monokai.css">
+        
+        <link rel="stylesheet" href="style.css">
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <div class="slides">
+
+                <section data-auto-animate>
+                    <h3 class="r-fit-text">Robot Operating System (ROS) on RT-Thread</h3>
+                    <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
+                    <p class="name">Ph.D. Student at the University of Exeter, in the U.K.</p>
+                    <div class="r-vstack">
+                        <img src="images/logo_black.png" class="logo">
+                    </div>
+                </section>
+
+                <section data-auto-animate>
+                    <h3 class="r-fit-text">Robot Operating System (ROS) on RT-Thread</h3>
+                    <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
+                    <div class="r-vstack">
+                        <ul class="agenda">
+                            <li class="">Introduction to ROS1/ROS2</li>
+                            <li class="fragment">RT-Thread Packages (<strong><a href="https://github.com/wuhanstudio/rt-rosserial">rosserial</a></strong> and <strong><a href="https://github.com/wuhanstudio/micro_ros">micro_ros</a></strong>)</li>
+                            <li class="fragment">Future Plan</li>
+                        </ul>
+                        <img src="images/logo_black.png" class="logo">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Why do we need ROS?</h2>
+                    <p class="fragment r-fit-text">ROS is not an operating system, it is a set of software libraries and tools.</p>
+                </section>
+
+                <section data-background-video="images/detection.mp4" 
+                data-background-video-loop data-background-video-muted>
+                </section>
+
+                <section>
+                    <h5>Adversarial ROS Detection <a href="https://github.com/wuhanstudio/adversarial-ros-detection" style="font-size: 0.8em;"><ion-icon name="logo-github"></ion-icon></a></h5>
+                    <div class="r-stack">
+                        <img src="images/1.png" class="">
+                        <img src="images/2.png" class="fragment fade-in">
+                        <img src="images/3.png" class="fragment fade-in">
+                    </div>
+                    <p style="font-size: 0.6em;" class="fragment">ROS decouples software from hardware.</p>
+                    <p style="font-size: 0.6em;" class="fragment">The same code works for both simulated robots and real robots.</p>
+                    <p style="font-size: 0.6em;"></p>
+                </section>
+
+                <section data-background-video="images/detection_tb3.mp4" 
+                data-background-video-loop data-background-video-muted>
+                </section>
+
+                <section>
+                    <h4>ROS for Autonomous Driving</h4>
+                    <div class="r-stack">
+                        <img src="images/carla.png" class="fragment fade-out" data-fragment-index="1" style="width: 80%;">
+                        <img src="images/utbm_robocar.jpg" class="fragment fade-in" data-fragment-index="1" style="width: 60%;">
+                    </div>
+                    <span style="font-size: 0.6em;">Carla Simulator - ROS Bridge</span>
+                </section>
+
+                <section>
+                    <h2>Why do we need RT-Thread?</h2>
+                    <p class="fragment r-fit-text">RT-Thread provides support for real-time applications. ROS runs on Linux, MacOS, Windows.</p>
+                </section>
+
+                <section>                
+                    <img src="images/rtt_ros.png" class="">
+                    <img src="images/rosserial_uros.png" class="fragment">
+                    <table class="fragment" style="font-size: 0.6em;">
+                        <thead>
+                            <tr>
+                                <th>rosserial</th>
+                                <th>micro_ros</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ROS1</td>
+                                <td>ROS2</td>
+                            </tr>
+                            <tr>
+                                <td>C++</td>
+                                <td>C/C++</td>
+                            </tr>
+                            <tr>
+                                <td>serial & TCP</td>
+                                <td>serial & UDP</td>
+                            </tr>
+                            <tr>
+                                <td>8bit - 32bit MCUs</td>
+                                <td>32bit MCUs</td>
+                            </tr>
+                            <tr>
+                                <td>amd64 arm64 <strong>armhf</strong></td>
+                                <td>amd64 arm64</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section>
+                    <h3>ROS1 on RT-Thread (rosserial)</h3>
+                </section>
+
+                <section>
+                    <h6>Choose the distribution (ROS1)</h6>
+                    <table style="font-size: 0.5em; margin-bottom: 3%;">
+                        <thead>
+                            <tr>
+                                <th>ROS1</th>
+                                <th>Ubuntu</th>
+                                <th>Debian</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Noetic</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                            </tr>
+                            <tr>
+                                <td>Melodic</td>
+                                <td>Ubuntu 18.04 (Bionic)</td>
+                                <td>Debian 9 (Stretch)</td>
+                            </tr>
+                            <tr>
+                                <td>Kinetic</td>
+                                <td>Ubuntu 16.04 (Xenial)</td>
+                                <td>Debian 8 (Jessie)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment">
+                        <h6>Install ROS1 (Noetic)</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape data-line-numbers="1-4|6-8|10-12" class="language-bash">
+                                $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+                                $ sudo apt install curl # if you haven't already installed curl
+                                $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+                                $ sudo apt update
+
+                                $ sudo apt install ros-noetic-ros-base
+                                $ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+                                $ source ~/.bashrc
+
+                                $ sudo apt install python3-rosdep
+                                $ sudo rosdep init
+                                $ rosdep update
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Install rosserial</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ sudo apt install ros-noetic-rosserial-arduino
+                            </code>
+                        </pre>
+                    </div>
+
+                </section>
+                
+                <section>
+                    <div class="">
+                        <h6>Ubuntu</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ roscore
+                                $ rosrun rosserial_python serial_node.py /dev/ttyUSB0
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>RT-Thread</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                msh > rosserial_hello_world_serial_example
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Echo the topic</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ rostopic echo /chatter
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>rosserial port on RT-Thread (RTTHardware.h)</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #ifndef ROSSERIAL_UART_NAME
+                                    #define ROSSERIAL_UART_NAME "uart2"
+                                #endif
+
+                                class RTTHardware {
+                                    public:
+                                        RTTHardware();
+
+                                        void setBaud(long baud);                                    
+                                        int  getBaud();
+
+                                        void init();
+
+                                        int  read();
+                                        void write(uint8_t* data, int length);
+
+                                        unsigned long time();
+                                };
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>rosserial port on RT-Thread (RTTTcpHardware.h)</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #ifndef ROSSERIAL_TCP_RECV_TIMEOUT
+                                    #define ROSSERIAL_TCP_RECV_TIMEOUT 200000
+                                #endif
+
+                                #ifndef ROSSERIAL_TCP_SEND_TIMEOUT
+                                    #define ROSSERIAL_TCP_SEND_TIMEOUT 200000
+                                #endif
+
+                                class RTTTcpHardware {
+                                public:
+                                    RTTTcpHardware();
+
+                                    void setConnection(const char* url, int port = 11411);
+
+                                    void init();
+
+                                    int  read();
+                                    void write(const uint8_t* data, int length);
+
+                                    unsigned long time();
+                                };
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>ROS2 on RT-Thread (micro_ros)</h3>
+                </section>
+
+                <section>
+                    <h6>Choose the distribution (ROS2)</h6>
+                    <table style="font-size: 0.5em; margin-bottom: 3%;">
+                        <thead>
+                            <tr>
+                                <th>ROS2</th>
+                                <th>Ubuntu</th>
+                                <th>Debian</th>
+                                <th>RHEL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Galactic</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                                <td>RHEL 8 64-bit</td>
+                            </tr>
+                            <tr>
+                                <td>Foxy</td>
+                                <td>Ubuntu 20.04 (Focal)</td>
+                                <td>Debian 10 (Buster)</td>
+                                <td>-</td>
+                            </tr>
+                            <tr style="color: gray;">
+                                <td>Dashing</td>
+                                <td>Ubuntu 18.04 (Bionic)</td>
+                                <td>Debian 9 (Stretch)</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="fragment">
+                        <h6>Install ROS2 (Galactic)</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape data-line-numbers="1-6|8-10|12-14" class="language-bash">
+                                $ sudo apt install software-properties-common
+                                $ sudo add-apt-repository universe
+                                $ sudo apt update && sudo apt install curl gnupg lsb-release
+                                $ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
+                                $ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+                                $ sudo apt update
+
+                                $ sudo apt install ros-galactic-ros-base
+                                $ echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+                                $ source ~/.bashrc
+
+                                $ sudo apt install python3-rosdep
+                                $ sudo rosdep init
+                                $ rosdep update
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>Ubuntu</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ docker run -it -p 9999:9999/udp --privileged microros/micro-ros-agent:galactic udp4 -p 9999
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>RT-Thread</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                msh > microros_pub_int32
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="fragment">
+                        <h6>Echo the topic</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-bash">
+                                $ docker exec -it YOUR_DOCKER_CONTAINER_NAME /bin/bash
+                                $ ros2 topic echo /micro_ros_rtt_node_publisher
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="">
+                        <h6>micro_ros port on RT-Thread (micro_ros_rtt.h)</h6>
+                        <pre style="font-size: 0.4em;">
+                            <code data-trim data-noescape class="language-cpp">
+                                #if defined MICRO_ROS_USE_SERIAL
+                                    bool   rtt_transport_open(struct uxrCustomTransport * transport);
+                                    bool   rtt_transport_close(struct uxrCustomTransport * transport);
+                                    size_t rtt_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
+                                    size_t rtt_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
+                                    int clock_gettime(clockid_t unused, struct timespec *tp);
+                                #endif  // MICRO_ROS_USE_SERIAL
+
+                                #if defined MICRO_ROS_USE_UDP
+                                    bool   rtt_udp_transport_open(struct uxrCustomTransport * transport);
+                                    bool   rtt_udp_transport_close(struct uxrCustomTransport * transport);
+                                    size_t rtt_udp_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
+                                    size_t rtt_udp_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
+                                    int clock_gettime(clockid_t unused, struct timespec *tp);
+                                #endif  // MICRO_ROS_USE_UDP
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Future Plan</h2>
+                </section>
+
+                <section>
+                    <img src="images/summary.png">
+                    <p>Higher frequency (TCP & UDP)</p>
+                    <p>Upstream the port</p>
+                    <div class="r-hstack">
+                        <img src="images/arthur.png" width="30%">
+                        <img src="images/Zou.png" width="30%">
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Thanks</h2>
+                    <div class="r-vstack">
+                        <p><a href="https://ros.wuhanstudio.uk/">https://ros.wuhanstudio.uk</a></p>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            Reveal.initialize({
+                center: true,
+                hash: true,
+                plugins: [ RevealHighlight ]
+            });
+        </script>
+
+    </body>
+</html>
