@@ -26,27 +26,27 @@
 
                 <section data-auto-animate>
                     <h3 class="r-fit-text">Robot Operating System (ROS) on RT-Thread</h3>
-                    <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
-                    <p class="name">Ph.D. Student at the University of Exeter, in the U.K.</p>
                     <div class="r-vstack">
                         <img src="images/logo_black.png" class="logo">
-                    </div>
-                </section>
-
-                <section data-auto-animate>
-                    <h3 class="r-fit-text">Robot Operating System (ROS) on RT-Thread</h3>
-                    <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
-                    <div class="r-vstack">
                         <ul class="agenda">
-                            <li class="">Introduction to ROS1/ROS2</li>
+                            <li class="fragment">Introduction to ROS1/ROS2</li>
                             <li class="fragment">RT-Thread Packages (<strong><a href="https://github.com/wuhanstudio/rt-rosserial">rosserial</a></strong> and <strong><a href="https://github.com/wuhanstudio/micro_ros">micro_ros</a></strong>)</li>
                             <li class="fragment">Future Plan</li>
                         </ul>
-                        <img src="images/logo_black.png" class="logo">
                     </div>
+                    <div>
+                        <img src="images/wuhanstudio.jpg" class="wuhanstudio">
+                        <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
+                        <p class="name">Ph.D. Student at the University of Exeter, in the U.K.</p>
+                    </div>
+                    
+                    <aside class="notes">
+                        Shhh, these are your private notes 📝
+                    </aside>
                 </section>
 
                 <section>
+                    <span class="menu-title" style="display: none">Why do we need ROS</span>
                     <h2>Why do we need ROS?</h2>
                     <p class="fragment r-fit-text">ROS is not an operating system, it is a set of software libraries and tools.</p>
                 </section>
@@ -412,14 +412,18 @@
         </div>
 
         <script src="dist/reveal.js"></script>
+        <script src="plugin/menu/menu.js"></script>
         <script src="plugin/highlight/highlight.js"></script>
         <script>
             Reveal.initialize({
                 center: true,
                 hash: true,
-                plugins: [ RevealHighlight ]
+                plugins: [ RevealHighlight, RevealMenu ],
+                menu: {
+                    hideMissingTitles: true,
+                },
+                // showNotes: true,
             });
         </script>
-
     </body>
 </html>
