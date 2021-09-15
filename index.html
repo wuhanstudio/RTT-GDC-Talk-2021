@@ -16,6 +16,8 @@
 
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     </head>
 
     <body>
@@ -36,12 +38,13 @@
                     </div>
                     <div>
                         <img src="images/wuhanstudio.jpg" class="wuhanstudio">
-                        <p class="name">Han Wu (<a href="https://github.com/wuhanstudio/">@wuhanstudio)</a></p>
+                        <p class="name">Han Wu &nbsp;<i class="fab fa-github"></i>&nbsp; <a href="https://github.com/wuhanstudio/">@wuhanstudio</a></p>
                         <p class="name">Ph.D. Student at the University of Exeter, in the U.K.</p>
+                        <p class="name fragment" data-fragment-index="1" style="color: blue;"> Research: Is Deep Learning secure for Robots?</p>
                     </div>
                     
                     <aside class="notes">
-                        Shhh, these are your private notes 📝
+                        Hi, I'm a PhD student at the University of Exeter, in the U.K. Here's my github username. I would like to introduce Robot Operating System, or ROS on RT-Thread, because my current research focuses on deep learning security for robots, that tries to seek the answer for the question: Is Deep Learning secure for Robots? In recent years, we see quite a lot of deep learning applications in robotics, such as object detection for autonomous driving. But here's the problem, what if deep learning models are vulnerable to adversarial attacks, which means neural networks can make wrong or even rediculous predictions once under attack, and I'll give a demonstration in the next slide. The demo project is implemented using Robot Operating System or ROS. So first, I'll give you a brief introduction to ROS ... How to communicate with ROS on RT-Thread. At last.
                     </aside>
                 </section>
 
@@ -49,10 +52,16 @@
                     <span class="menu-title" style="display: none">Why do we need ROS</span>
                     <h2>Why do we need ROS?</h2>
                     <p class="fragment r-fit-text">ROS is not an operating system, it is a set of software libraries and tools.</p>
+                    <aside class="notes">
+                        Well, first thing first, ROS is actually not an operating system, it is a set of software libraries and tools running on linux. So it is a software framework for linux. Well, I guess it's more intuitive to see a demo first.
+                    </aside>
                 </section>
 
                 <section data-background-video="images/detection.mp4" 
                 data-background-video-loop data-background-video-muted>
+                <aside class="notes">
+                    This is a project that demonstrates how to attack deep learning models, and it is implemented using ROS. I'll illustrate each component one by one. At the bottom right corner, we have a Gazebo Simulator for ROS. Actually, the simulator runs on a remote server, so the network connection makes it a little bit slow here. Anyway, we have a simulated robot with a camera, and the image captured by the simulated camera is sent to the browser. We can see the input image and the output of object detection. We can see a bounding box for the traffic sign 60. The last component is the control panel where we can control the simulated robot using keyboard. The object detection model seems to be pretty stable, right?. But actually, it is not. As I said, deep learning models are not secure. So we can generate a traffic sign out of no where. As you can see here, we have a lot of traffic signs now. For humans, we know that it is not a traffic sign, it's looks lile random noises. But deep learning models will recognize it as traffic signs. Imagine, if you put this image on your t-shirt, and walk on the street, the aunomous driving car will see a person wearing traffic signs. That's crazy, right? So now, do you still think deep learning models are secure? Perhaps not. Just a short demo, let's move back to take look at the overall architecture of this project. 
+                </aside>
                 </section>
 
                 <section>
@@ -65,24 +74,40 @@
                     <p style="font-size: 0.6em;" class="fragment">ROS decouples software from hardware.</p>
                     <p style="font-size: 0.6em;" class="fragment">The same code works for both simulated robots and real robots.</p>
                     <p style="font-size: 0.6em;"></p>
+                    <!-- <p style="font-size: 0.6em;"><a href="https://dabit-industries.github.io/turtlebot2-tutorials/14b-OpenCV2_Python.html">ROS Tutorial</a></p> -->
+                    <aside class="notes">
+                        In this project, eveything is published as ROS topics. If we would like to send out information, we can publish a topic; On the other hand, if we would like to receive information, we subscribe to a topic. For example, if we would like to send out the image from the simulator to the browser, we can publish a topic named /image. While if we would like to receive the control command from the keyboard, we can subscribe to a topic named /cmd_vel. 
+                        
+                        So what if the benefit of doing this?  Well, it decouple each component. For example, from the browsers perspective, it receives images from the topic /image.It has no idea where the image comes from. If we replace the simulator with a real robot. We don't really need to change the code for the browser, because we still have the same topic /image. Similarly, we can replace the keyboard with a controller, and eveything remains the same as long as we have the same topic.
+                    </aside>
                 </section>
 
                 <section data-background-video="images/detection_tb3.mp4" 
                 data-background-video-loop data-background-video-muted>
+
+                <aside class="notes">
+                    Now we have a real robot using the same code. This is one of the benefits of using ROS, the same code works for both simulated and real robots. BTW, eveything is open sourced here.
+                </aside>
                 </section>
 
                 <section>
                     <h4>ROS for Autonomous Driving</h4>
                     <div class="r-stack">
-                        <img src="images/carla.png" class="fragment fade-out" data-fragment-index="1" style="width: 80%;">
-                        <img src="images/utbm_robocar.jpg" class="fragment fade-in" data-fragment-index="1" style="width: 60%;">
+                        <a href="https://github.com/carla-simulator/ros-bridge"><img src="images/carla.png" class="fragment fade-out" data-fragment-index="1" style="width: 80%;"></a>
+                        <a href="https://epan-utbm.github.io/utbm_robocar_dataset/"><img src="images/utbm_robocar.jpg" class="fragment fade-in" data-fragment-index="1" style="width: 60%;"></a>
                     </div>
-                    <span style="font-size: 0.6em;">Carla Simulator - ROS Bridge</span>
+                    <a href="https://github.com/carla-simulator/ros-bridge"><span style="font-size: 0.6em;">Carla Simulator - ROS Bridge</span></a>
+                    <aside class="notes">
+                        Similarly, we can test autonomous driving in a simulated environment first. When eveything is ready, we can replace simulated sensors with real sensors, and now we have a real autonomous driving car. So this is the introduction to ROS, hopefully you will find ROS useful.
+                    </aside>
                 </section>
 
                 <section>
                     <h2>Why do we need RT-Thread?</h2>
                     <p class="fragment r-fit-text">RT-Thread provides support for real-time applications. ROS runs on Linux, MacOS, Windows.</p>
+                    <aside class="notes">
+                        Now we have another question, why do we need RT-Thread? Well, of course we need RT-Thread because the whole conference is about RT-Thread. Well, this may be the first reason, but more importantly, RT-Thread provides support for real-time applications. As mentioned previously, ROS runs on Linux, MacOS, Windows. They are not real-time operating systems. As a result, for real-time control applications, we need RT-Thread. 
+                    </aside>
                 </section>
 
                 <section>                
@@ -118,6 +143,9 @@
                             </tr>
                         </tbody>
                     </table>
+                    <aside class="notes">
+                        micro_ros is the newer version and targets at better hardwares. Next, I'll introduce roserial and micro_ros respectively.
+                    </aside>
                 </section>
 
                 <section>
@@ -153,7 +181,7 @@
                         </tbody>
                     </table>
                     <div class="fragment">
-                        <h6>Install ROS1 (Noetic)</h6>
+                        <h6>Install ROS1 (Noetic) &nbsp;<a href="http://wiki.ros.org/noetic/Installation/Ubuntu"><i class="fa fa-solid fa-book"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape data-line-numbers="1-4|6-8|10-12" class="language-bash">
                                 $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -185,7 +213,7 @@
                 
                 <section>
                     <div class="">
-                        <h6>Ubuntu</h6>
+                        <h6>Ubuntu &nbsp;<a href="http://github.com/wuhanstudio/rt-rosserial"><i class="fa fa-solid fa-book"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape class="language-bash">
                                 $ roscore
@@ -211,6 +239,10 @@
                             </code>
                         </pre>
                     </div>
+
+                    <a href="https://asciinema.org/a/433900" target="_blank" class="fragment"><img src="https://asciinema.org/a/433900.svg" width="30%"/></a>
+
+                    <img src="images/ros-on-rtt-rosserial.png" width="70%"/>
                 </section>
 
                 <section>
@@ -309,7 +341,7 @@
                         </tbody>
                     </table>
                     <div class="fragment">
-                        <h6>Install ROS2 (Galactic)</h6>
+                        <h6>Install ROS2 (Galactic) <a href="https://docs.ros.org/en/crystal/Installation/Linux-Install-Debians.html">&nbsp;<i class="fa fa-solid fa-book"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape data-line-numbers="1-6|8-10|12-14" class="language-bash">
                                 $ sudo apt install software-properties-common
@@ -333,7 +365,7 @@
 
                 <section>
                     <div class="">
-                        <h6>Ubuntu</h6>
+                        <h6>Ubuntu &nbsp;<a href="https://github.com/wuhanstudio/micro_ros"><i class="fa fa-solid fa-book"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape class="language-bash">
                                 $ docker run -it -p 9999:9999/udp --privileged microros/micro-ros-agent:galactic udp4 -p 9999
@@ -359,6 +391,10 @@
                             </code>
                         </pre>
                     </div>
+
+                    <a href="https://asciinema.org/a/433900" target="_blank" class="fragment"><img src="https://asciinema.org/a/433900.svg" width="30%"/></a>
+
+                    <img src="images/ros-on-rtt-miroros.png" width="70%"/>
                 </section>
 
                 <section>
