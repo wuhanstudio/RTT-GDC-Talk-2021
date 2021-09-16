@@ -106,7 +106,9 @@
                     <h2>Why do we need RT-Thread?</h2>
                     <p class="fragment r-fit-text">RT-Thread provides support for real-time applications. ROS runs on Linux, MacOS, Windows.</p>
                     <aside class="notes">
-                        Now we have another question, why do we need RT-Thread? Well, of course we need RT-Thread because the whole conference is about RT-Thread. Well, this may be the first reason, but more importantly, RT-Thread provides support for real-time applications. As mentioned previously, ROS runs on Linux, MacOS, Windows. They are not real-time operating systems. As a result, for real-time control applications, we need RT-Thread. 
+                        Now we have another question, why do we need RT-Thread? 
+                        <!-- Well, of course we need RT-Thread because the whole conference is about RT-Thread. Well, this may be the first reason, but more importantly, RT-Thread provides support for real-time applications.  -->
+                        The short answer is: RT-Thread provides support for real-time applications. As mentioned previously, ROS runs on Linux, MacOS, Windows. They are not real-time operating systems. As a result, for real-time control applications, we need RT-Thread. 
                     </aside>
                 </section>
 
@@ -144,7 +146,9 @@
                         </tbody>
                     </table>
                     <aside class="notes">
-                        micro_ros is the newer version and targets at better hardwares. Next, I'll introduce roserial and micro_ros respectively.
+                        Besides, micro_ros targets at better hardwares. 
+                        Hopefully, this talbe will help you to decide which one is better for your application.
+                        Next, I'll introduce roserial and micro_ros respectively.
                     </aside>
                 </section>
 
@@ -198,6 +202,15 @@
                                 $ rosdep update
                             </code>
                         </pre>
+                        <aside class="notes">
+                            First thing first, we need to select the distribution of ROS. There are several distributions, kinetic, melodic, and noeric. Each distribution is released with a corresponding version of Ubuntu and Debian.
+
+                            Add the repo
+                            Update the environment
+                            Initialization
+
+                            So now we have ROS on linux. How do we set up the connection with RT-Thread?
+                        </aside>
                     </div>
 
                     <div class="fragment">
@@ -207,8 +220,15 @@
                                 $ sudo apt install ros-noetic-rosserial-arduino
                             </code>
                         </pre>
+                        
                     </div>
+                    <aside class="notes">
+                        First, we nneed to start the rosserial node on linux, so that we can communicate with RT-Thread using serial port, of course you can choose TCP connection as well.
 
+                        Later after that, we can start the rosserial program on RT-Thread, and publish a topic.
+
+                        Well, this maybe over-simplified.
+                    </aside>
                 </section>
                 
                 <section>
@@ -248,7 +268,7 @@
 
                 <section>
                     <div class="">
-                        <h6>rosserial port on RT-Thread (RTTHardware.h)</h6>
+                        <h6>rosserial port on RT-Thread (RTTHardware.h) <a href="https://github.com/wuhanstudio/rt-rosserial/blob/master/port/RTTHardware.h"> &nbsp;<i class="fab fa-github"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape class="language-cpp">
                                 #ifndef ROSSERIAL_UART_NAME
@@ -272,11 +292,14 @@
                             </code>
                         </pre>
                     </div>
+                    <aside class="notes">
+                        Now, we have set up the connection between RT-Thread and ROS. If you find it interesting, and would like to make contributions, please feel free to make pull requests. And you can find the implementation here. Basically, I implemented read and write functions for serial conmmucation, and read and write functions for TCP connection. This is the place where you can find the port of rosserial to rt-thread.
+                    </aside>
                 </section>
 
                 <section>
                     <div class="">
-                        <h6>rosserial port on RT-Thread (RTTTcpHardware.h)</h6>
+                        <h6>rosserial port on RT-Thread (RTTTcpHardware.h)  &nbsp;<a href="https://github.com/wuhanstudio/rt-rosserial/blob/master/port/RTTTcpHardware.h"><i class="fab fa-github"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape class="language-cpp">
                                 #ifndef ROSSERIAL_TCP_RECV_TIMEOUT
@@ -400,7 +423,7 @@
 
                 <section>
                     <div class="">
-                        <h6>micro_ros port on RT-Thread (micro_ros_rtt.h)</h6>
+                        <h6>micro_ros port on RT-Thread (micro_ros_rtt.h) <a href="https://github.com/wuhanstudio/micro_ros/tree/master/src"> &nbsp;<i class="fab fa-github"></i></a></h6>
                         <pre style="font-size: 0.4em;">
                             <code data-trim data-noescape class="language-cpp">
                                 #if defined MICRO_ROS_USE_SERIAL
@@ -421,6 +444,9 @@
                             </code>
                         </pre>
                     </div>
+                    <aside class="notes">
+                        Once again, you would like to make contributions, feel free to create pull requests.
+                    </aside>
                 </section>
 
                 <section>
@@ -429,12 +455,16 @@
 
                 <section>
                     <img src="images/summary.png">
-                    <p>Higher frequency (TCP & UDP)</p>
-                    <p>Upstream the port</p>
-                    <div class="r-hstack">
+                    <p class="fragment">Test more sensors (Lidar)</p>
+                    <p class="fragment">Upstream the port</p>
+                    <div class="r-hstack fragment">
                         <img src="images/arthur.png" width="30%">
+                        <img src="images/pablo.png" width="30%">
                         <img src="images/Zou.png" width="30%">
                     </div>
+                    <aside class="notes">
+                        Finally, I would like to thank other developers, the ArthurZheng, Pablo Garrido and JC. ArthurZheng improves the rosserial communication speed, Pablo Garrido, he helped me a lot in debbuging micro_ros on RT-Thread, and JC released the package of ROS DDS or Data Distribution Service on RT-Thread. Open source enables diversity. Thank you all for your help.
+                    </aside>
                 </section>
 
                 <section>
@@ -442,6 +472,9 @@
                     <div class="r-vstack">
                         <p><a href="https://ros.wuhanstudio.uk/">https://ros.wuhanstudio.uk</a></p>
                     </div>
+                    <aside class="notes">
+                        online
+                    </aside>
                 </section>
 
             </div>
